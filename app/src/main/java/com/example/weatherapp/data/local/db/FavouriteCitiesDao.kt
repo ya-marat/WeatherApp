@@ -1,0 +1,25 @@
+package com.example.weatherapp.data.local.db
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.example.weatherapp.data.local.model.CityDbModel
+import com.example.weatherapp.data.network.dto.CityDto
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface FavouriteCitiesDao {
+
+    @Query("SELECT * FROM favourite_cities")
+    fun getFavouriteCities(): Flow<List<CityDto>>
+
+    @Query("SELECT EXISTS (SELECT * FROM favourite_cities WHERE id=:cityId LIMIT 1)")
+    fun observeIsFavourite(cityId: Int): Flow<Boolean>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addToFavourite(cityDbModel: CityDbModel)
+
+    @Query("DELETE FROM favourite_cities WHERE id=:cityId")
+    suspend fun removeFromFavourite(cityId: Int)
+}
