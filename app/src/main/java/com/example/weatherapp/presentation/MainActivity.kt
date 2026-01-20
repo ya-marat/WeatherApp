@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
 
         val apiService = ApiFactory.apiService
 
-        CoroutineScope(Dispatchers.Default).launch {
+        CoroutineScope(Dispatchers.Main).launch {
 
             Log.d("MainActivity", "Start loading")
 
