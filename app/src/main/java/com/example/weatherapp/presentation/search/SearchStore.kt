@@ -14,7 +14,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-internal interface SearchStore : Store<Intent, State, Label> {
+interface SearchStore : Store<Intent, State, Label> {
 
     sealed interface Intent {
 
@@ -70,7 +70,7 @@ class SearchStoreFactory @Inject constructor(
                 searchState = State.SearchState.Initial
             ),
             bootstrapper = BootstrapperImpl(),
-            executorFactory = ::ExecutorImpl,
+            executorFactory = { ExecutorImpl(openReason) },
             reducer = ReducerImpl
         ) {}
 
