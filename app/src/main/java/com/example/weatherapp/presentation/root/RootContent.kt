@@ -10,7 +10,7 @@ import com.example.weatherapp.presentation.ui.theme.WeatherAppTheme
 @Composable
 fun RootContent(component: RootComponent) {
 
-    WeatherAppTheme {
+    WeatherAppTheme(dynamicColor = false) {
         Children(
             stack = component.stack
         ) {
