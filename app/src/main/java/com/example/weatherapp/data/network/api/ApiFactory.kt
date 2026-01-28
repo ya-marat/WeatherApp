@@ -1,5 +1,6 @@
 package com.example.weatherapp.data.network.api
 
+import androidx.compose.ui.text.intl.Locale
 import com.example.weatherapp.BuildConfig
 import com.example.weatherapp.Consts
 import com.example.weatherapp.UrlLoggingInterceptor
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit
 object ApiFactory {
 
     private const val KEY_PARAM = "key"
+    private const val PARAM_LANG = "lang"
     private const val BASE_URL = "https://api.weatherapi.com/v1/"
     private fun createRetrofit(): ApiService {
 
@@ -27,6 +29,7 @@ object ApiFactory {
                 .url
                 .newBuilder()
                 .addQueryParameter(KEY_PARAM, BuildConfig.WEATHER_API_KEY)
+                .addQueryParameter(PARAM_LANG, java.util.Locale.getDefault().language)
                 .build()
             val newRequest = originalRequest.newBuilder()
                 .url(newUrl)
